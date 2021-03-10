@@ -5,6 +5,7 @@ public class Component {
     public Component(int componentType) {
         this.componentType = componentType;
     }
+
     public int getComponentType() {
         return componentType;
     }
