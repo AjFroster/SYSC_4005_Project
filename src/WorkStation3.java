@@ -4,8 +4,8 @@ import java.util.*;
 public class WorkStation3 extends WorkStation{
     private Queue<Component> queue3;
 
-    public WorkStation3(int id, String[] fileNames) {
-        super(id, fileNames);
+    public WorkStation3(int id, String[] inputFiles) {
+        super(id, inputFiles);
     }
 
     @Override

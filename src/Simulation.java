@@ -11,12 +11,12 @@ public class Simulation {
     public double currentTime;
 
     public Simulation() {
-        this.inspector1 = new Inspector1(1, new String[]{"src/DataFiles/servinsp1.dat"});
-        this.inspector2 = new Inspector2(2, new String[]{"src/DataFiles/servinsp22.dat", "src/DataFiles/servinsp23.dat"});
+        this.inspector1 = new Inspector1(1, new String[]{"resources/DataFiles/servinsp1.dat"});
+        this.inspector2 = new Inspector2(2, new String[]{"resources/DataFiles/servinsp22.dat", "resources/DataFiles/servinsp23.dat"});
 
-        this.workStation1 = new WorkStation1(1, new String[]{"src/DataFiles/ws1.dat"});
-        this.workStation2 = new WorkStation2(2, new String[]{"src/DataFiles/ws2.dat", "src/DataFiles/ws3.dat"});
-        this.workStation3 = new WorkStation3(3, new String[]{"src/DataFiles/ws2.dat", "src/DataFiles/ws3.dat"});
+        this.workStation1 = new WorkStation1(1, new String[]{"resources/DataFiles/ws1.dat"});
+        this.workStation2 = new WorkStation2(2, new String[]{"resources/DataFiles/ws2.dat", "resources/DataFiles/ws3.dat"});
+        this.workStation3 = new WorkStation3(3, new String[]{"resources/DataFiles/ws2.dat", "resources/DataFiles/ws3.dat"});
 
     }
 
@@ -25,7 +25,7 @@ public class Simulation {
     }
 
     public static void main(String[] args) {
-
+        Simulation simulation = new Simulation();
 
     }
 

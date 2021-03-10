@@ -12,8 +12,8 @@ public class WorkStation extends EventEntity {
     private double totalIdleTime;
     private int productType;
 
-    public WorkStation(int id, String[] filenames) {
-        super(filenames);
+    public WorkStation(int id, String[] inputFiles) {
+        super(inputFiles);
         this.id = id;
 
         //produceProduct();

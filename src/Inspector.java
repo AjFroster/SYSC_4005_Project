@@ -7,8 +7,8 @@ public class Inspector extends EventEntity {
 
 
 
-    public Inspector(int id, String[] filenames) {
-        super(filenames);
+    public Inspector(int id, String[] inputFiles) {
+        super(inputFiles);
         this.id = id;
 
         //inspectComponent();
