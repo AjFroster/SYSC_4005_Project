@@ -2,14 +2,17 @@ import java.awt.Component;
 import java.util.*;
 
 public class WorkStation3 extends WorkStation{
-    private Queue<Component> queue3;
 
-    public WorkStation3(int id, String[] inputFiles) {
-        super(id, inputFiles);
+    private final double lambda = 0.113693;
+
+    public WorkStation3 (){
+        super();
     }
 
     @Override
-    public void produceProduct(){
-
+    public double getFinishTime() {
+        double r = rng.getRN();
+        double x = (-1/lambda)*Math.log(r);
+        return x;
     }
 }

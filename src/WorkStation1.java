@@ -1,11 +1,18 @@
+import RNG.CLCG;
+import java.lang.Math;
+
 public class WorkStation1 extends WorkStation{
 
-    public WorkStation1(int id, String[] inputFiles) {
-        super(id, inputFiles);
+    private final double lambda = 0.217183;
+
+    public WorkStation1 (){
+        super();
     }
 
     @Override
-    public void produceProduct(){
-
+    public double getFinishTime() {
+        double r = rng.getRN();
+        double x = (-1/lambda)*Math.log(r);
+        return x;
     }
 }

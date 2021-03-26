@@ -1,4 +1,6 @@
-public class Inspector extends EventEntity {
+import RNG.CLCG;
+
+public abstract class Inspector extends EventEntity {
 
     public int id;
     public Component currentComponent;
@@ -6,12 +8,4 @@ public class Inspector extends EventEntity {
     private double totalTimeIdle;
 
 
-
-    public Inspector(int id, String[] inputFiles) {
-        super(inputFiles);
-        this.id = id;
-
-        //inspectComponent();
-        //selectWorkStation();
-    }
 }

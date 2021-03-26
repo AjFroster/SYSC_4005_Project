@@ -1,4 +1,5 @@
 import java.util.*;
+import RNG.*;
 
 public class Simulation {
     public Inspector1 inspector1;
@@ -11,12 +12,7 @@ public class Simulation {
     public double currentTime;
 
     public Simulation() {
-        this.inspector1 = new Inspector1(1, new String[]{"resources/DataFiles/servinsp1.dat"});
-        this.inspector2 = new Inspector2(2, new String[]{"resources/DataFiles/servinsp22.dat", "resources/DataFiles/servinsp23.dat"});
 
-        this.workStation1 = new WorkStation1(1, new String[]{"resources/DataFiles/ws1.dat"});
-        this.workStation2 = new WorkStation2(2, new String[]{"resources/DataFiles/ws2.dat", "resources/DataFiles/ws3.dat"});
-        this.workStation3 = new WorkStation3(3, new String[]{"resources/DataFiles/ws2.dat", "resources/DataFiles/ws3.dat"});
 
     }
 
@@ -25,7 +21,22 @@ public class Simulation {
     }
 
     public static void main(String[] args) {
-        Simulation simulation = new Simulation();
+        //Simulation simulation = new Simulation();
+        WorkStation ws1 = new WorkStation1();
+        Inspector isp1 = new Inspector1();
+        for(int i =0; i<10; i++){
+            System.out.println("WS1: " + ws1.getFinishTime());
+            System.out.println("ISP1: " + isp1.getFinishTime());
+        }
+
+        /*CLCG test = new CLCG();
+        System.out.println("X1(a,m,c): " + test.getX1().getA()+ ", "+test.getX1().getM()+ ", "+test.getX1().getC());
+        System.out.println("X2(a,m,c): " + test.getX2().getA()+ ", "+test.getX2().getM()+ ", "+test.getX2().getC());
+        System.out.println("X3(a,m,c): " + test.getX3().getA()+ ", "+test.getX3().getM()+ ", "+test.getX3().getC());
+        for(int i =0; i<10; i++){
+            System.out.println("R: " + test.getRN());
+        }
+         */
 
     }
 
