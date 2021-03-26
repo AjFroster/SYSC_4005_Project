@@ -33,7 +33,7 @@ public class Simulation {
                 inspectionDone((Inspector) nextE.getSource());
             }
             else if(getNextEvent().getEType() == Event.eventType.ProductDone){
-
+                productComplete((WorkStation) nextE.getSource());
             }
 
         }
@@ -49,14 +49,15 @@ public class Simulation {
             if(e2 != null) FEL.add(e2);
             if(e3 != null) FEL.add(e3);
             FEL.add(i.inspect(currentTime));
+            return true;
         }
         else{
             i.idle(currentTime);
+            return false;
         }
-        return true;
     }
 
-    public boolean productComplete() {
+    public boolean productComplete(WorkStation ws) {
         return true;
     }
 

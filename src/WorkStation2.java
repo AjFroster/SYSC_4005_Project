@@ -12,7 +12,15 @@ public class WorkStation2 extends WorkStation{
 
     @Override
     Event produce(double clock) {
-        return null;
+        if(queue1.size()>=1 && queue2.size()>=1 && state == states.IDLE){
+            state = states.WORKING;
+            double completeTime = clock + getFinishTime();
+            return new Event(this, completeTime);
+        }
+        else{
+            if(queue1.size()<2) state = states.IDLE;
+            return null;
+        }
     }
 
     @Override
