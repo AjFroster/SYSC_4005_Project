@@ -1,13 +1,14 @@
 public class Component {
-    private int componentType;
+    public enum componentType{ONE, TWO, THREE}
+    private componentType cType;
     private enum eventType {Inspected, WorkstationQueue, Product};
 
-    public Component(int componentType) {
-        this.componentType = componentType;
+    public Component(componentType cType) {
+        this.cType = cType;
     }
 
-    public int getComponentType() {
-        return componentType;
+    public componentType getCType() {
+        return cType;
     }
 
 }

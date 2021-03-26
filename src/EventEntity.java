@@ -14,6 +14,4 @@ public abstract class EventEntity {
     }
 
     abstract public double getFinishTime();
-
-
 }

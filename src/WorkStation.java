@@ -3,16 +3,25 @@ import RNG.CLCG;
 
 public abstract class  WorkStation extends EventEntity {
 
-    private enum states {WORKING, IDLE};
-    private Enum state;
-    private int priority;
+    public enum states {WORKING, IDLE};
+
+
+    protected states state;
     private double totalIdleTime;
-    private int productType;
+    protected Product product;
+    private double idleStart;
 
 
     public WorkStation(){
 
     }
+
+    abstract Event produce(double clock);
+
+    public states getState() {
+        return state;
+    }
+
 
 
 }

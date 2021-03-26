@@ -1,4 +1,3 @@
-import java.awt.Component;
 import java.util.*;
 
 public class WorkStation3 extends WorkStation{
@@ -12,9 +11,21 @@ public class WorkStation3 extends WorkStation{
     }
 
     @Override
+    Event produce(double clock) {
+        return null;
+    }
+
+    @Override
     public double getFinishTime() {
         double r = rng.getRN();
         double x = (-1/lambda)*Math.log(r);
         return x;
+    }
+
+    public Queue<Component> getQueue1() {
+        return queue1;
+    }
+    public Queue<Component> getQueue3() {
+        return queue3;
     }
 }

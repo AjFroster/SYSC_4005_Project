@@ -1,18 +1,19 @@
 public class Product {
-    private int productType;
+    public enum productType{ONE, TWO, THREE}
+    private productType pType;
     private double completionTime;
 
-    public Product(int productType, double completionTime) {
-        this.productType = productType;
+    public Product(productType pType, double completionTime) {
+        this.pType = pType;
         this.completionTime = completionTime;
     }
 
-    public int getProductType() {
-        return productType;
+    public productType getProductType() {
+        return pType;
     }
 
-    public void setProductType(int productType) {
-        this.productType = productType;
+    public void setProductType(productType productType) {
+        this.pType = productType;
     }
 
     public double getCompletionTime() {
