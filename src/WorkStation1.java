@@ -1,5 +1,6 @@
 import RNG.CLCG;
 import java.lang.Math;
+import java.util.LinkedList;
 import java.util.Queue;
 
 public class WorkStation1 extends WorkStation{
@@ -10,17 +11,26 @@ public class WorkStation1 extends WorkStation{
 
     public WorkStation1 (){
         super();
+        queue1 = new LinkedList<Component>();
     }
 
     @Override
     public Event produce(double clock) {
         if(queue1.size()==2 && state == states.IDLE){
+            totalIdleTime += clock - idleStart;
             state = states.WORKING;
-            double completeTime = clock + getFinishTime();
+            double duration = getFinishTime();
+            double completeTime = clock + duration;
+            queue1.poll();
+            queue1.poll();
+            System.out.println("Workstation1 Event Added: Duration " + duration + ", CompleteTime " + completeTime);
             return new Event(this, completeTime);
         }
         else{
-            if(queue1.size()<2) state = states.IDLE;
+            if(queue1.size()<2) {
+                state = states.IDLE;
+                idleStart = clock;
+            }
             return null;
         }
     }

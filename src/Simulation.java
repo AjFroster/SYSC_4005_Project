@@ -16,6 +16,7 @@ public class Simulation {
     }
 
     public void StartSimulation(){
+        System.out.println("-------Simulation Start--------");
         currentTime=0.0;
         output = new ArrayList<Product>();
         inspector1 = new Inspector1();
@@ -26,20 +27,34 @@ public class Simulation {
         FEL = new PriorityQueue<Event>(new EventComparator());
         FEL.add(inspector1.inspect(currentTime));
         FEL.add(inspector2.inspect(currentTime));
+        //run this code to start their idle time
+        workStation1.produce(currentTime);
+        workStation2.produce(currentTime);
+        workStation3.produce(currentTime);
 
         while(currentTime < 120.0){
             Event nextE = getNextEvent();
             if(nextE.getEType() == Event.eventType.InspectDone){
                 inspectionDone((Inspector) nextE.getSource());
             }
-            else if(getNextEvent().getEType() == Event.eventType.ProductDone){
+            else if(nextE.getEType() == Event.eventType.ProductDone){
                 productComplete((WorkStation) nextE.getSource());
             }
 
         }
+        System.out.println("--------SIMULATION COMPLETE-------");
+        System.out.println("Inspector 1 idle time: " + inspector1.getTotalTimeIdle());
+        System.out.println("Inspector 2 idle time: " + inspector2.getTotalTimeIdle());
+        System.out.println("Workstation 1 idle time: " + workStation1.getTotalIdleTime());
+        System.out.println("Workstation 2 idle time: " + workStation2.getTotalIdleTime());
+        System.out.println("Workstation 3 idle time: " + workStation3.getTotalIdleTime());
+        for(Product p: output){
+            System.out.println("Product Type " + p.getProductType()+ ", at time " + p.getCompletionTime());
+        }
     }
 
     public boolean inspectionDone(Inspector i) {
+        System.out.println("Event InspectionComplete! Type " + i.getComponent().getCType() + " at " + currentTime);
         if(i.selectWorkStation(workStation1, workStation2, workStation3)){
             //Run produce, if it can start produce will return a new event Otherwise return null
             Event e1 = workStation1.produce(currentTime);
@@ -58,13 +73,61 @@ public class Simulation {
     }
 
     public boolean productComplete(WorkStation ws) {
-        return true;
+        ws.state = WorkStation.states.IDLE;
+        if(ws.equals(workStation1)){
+            System.out.println("Event Product! Type 1 at " + currentTime);
+            output.add(new Product(Product.productType.ONE, currentTime));
+            Event e1 = workStation1.produce(currentTime);
+            if(e1!=null) FEL.add(e1);
+            if(inspector1.getState() == Inspector.states.BLOCKED){
+                workStation1.getQueue1().add(inspector1.getComponent());
+                inspector1.inspect(currentTime);
+            }
+            return true;
+        }
+        else if(ws.equals(workStation2)){
+            System.out.println("Event Product! Type 2 at " + currentTime);
+            output.add(new Product(Product.productType.TWO, currentTime));
+            Event e2 = workStation2.produce(currentTime);
+            if(e2 != null) FEL.add(e2);
+            if(inspector1.getState() == Inspector.states.BLOCKED){
+                workStation2.getQueue1().add(inspector1.getComponent());
+                inspector1.inspect(currentTime);
+            }
+            if(inspector2.getState() == Inspector.states.BLOCKED
+                    && inspector2.getComponent().getCType() == Component.componentType.TWO){
+                workStation2.getQueue2().add(inspector2.getComponent());
+                inspector2.inspect(currentTime);
+            }
+            return true;
+        }
+        else if(ws.equals(workStation3)){
+            System.out.println("Event Product! Type 3 at " + currentTime);
+            output.add(new Product(Product.productType.THREE, currentTime));
+            Event e3 = workStation3.produce(currentTime);
+            if(e3 != null) FEL.add(e3);
+            if(inspector1.getState() == Inspector.states.BLOCKED){
+                workStation3.getQueue1().add(inspector1.getComponent());
+                inspector1.inspect(currentTime);
+            }
+            if(inspector2.getState() == Inspector.states.BLOCKED
+                    && inspector2.getComponent().getCType() == Component.componentType.THREE){
+                workStation3.getQueue3().add(inspector2.getComponent());
+                inspector2.inspect(currentTime);
+            }
+            return true;
+        }
+        return false;
     }
 
     public Event getNextEvent(){
-        return FEL.poll();
+        Event next = FEL.poll();
+        currentTime = next.getCompleteTime();
+        return next;
     }
     public static void main(String[] args) {
+        Simulation sim = new Simulation();
+        sim.StartSimulation();
         /*
         WorkStation ws1 = new WorkStation1();
         Inspector isp1 = new Inspector1();

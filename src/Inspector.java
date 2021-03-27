@@ -22,7 +22,9 @@ public abstract class Inspector extends EventEntity {
             totalTimeIdle += clock - blockStart;
         }
         state = states.INSPECTING;
-        double completeTime = clock+getFinishTime();
+        double duration = getFinishTime();
+        double completeTime = clock+duration;
+        System.out.println("Inspection" + component.getCType() + " Event Added: Duration " + duration + ", CompleteTime " + completeTime);
         return new Event(this, completeTime);
     }
 
@@ -34,6 +36,17 @@ public abstract class Inspector extends EventEntity {
     public void idle(double clock){
         blockStart = clock;
         state = states.BLOCKED;
+    }
+
+    public states getState(){
+        return state;
+    }
+    public Component getComponent(){
+        return this.component;
+    }
+
+    public double getTotalTimeIdle(){
+        return totalTimeIdle;
     }
 
     abstract boolean selectWorkStation(WorkStation1 w1, WorkStation2 w2, WorkStation3 w3);

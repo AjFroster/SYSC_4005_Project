@@ -30,8 +30,8 @@ public class Inspector2 extends Inspector{
     private void nextComponent(){
         double r = componentGenerator.getRN();
 
-        if(r>0.5) component = new Component(Component.componentType.TWO);
-        else component  = new Component(Component.componentType.THREE);
+        if(r>0.5) this.component = new Component(Component.componentType.TWO);
+        else this.component  = new Component(Component.componentType.THREE);
 
     }
 
@@ -49,6 +49,7 @@ public class Inspector2 extends Inspector{
             if(w2.getQueue2().size()==2) return false;
             else{
                 w2.getQueue2().add(component);
+                System.out.println("Add component 2 to W2");
                 return true;
             }
         }
@@ -56,6 +57,7 @@ public class Inspector2 extends Inspector{
             if(w3.getQueue3().size()==2)return false;
             else{
                 w3.getQueue3().add(component);
+                System.out.println("Add component 3 to W3");
                 return true;
             }
         }

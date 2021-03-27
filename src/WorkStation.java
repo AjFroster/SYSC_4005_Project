@@ -7,9 +7,9 @@ public abstract class  WorkStation extends EventEntity {
 
 
     protected states state;
-    private double totalIdleTime;
+    protected double totalIdleTime;
     protected Product product;
-    private double idleStart;
+    protected double idleStart;
 
 
     public WorkStation(){
@@ -21,6 +21,10 @@ public abstract class  WorkStation extends EventEntity {
     public states getState() {
         return state;
     }
+
+     public double getTotalIdleTime(){
+        return totalIdleTime;
+     }
 
 
 

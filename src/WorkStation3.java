@@ -8,17 +8,27 @@ public class WorkStation3 extends WorkStation{
 
     public WorkStation3 (){
         super();
+        queue1 = new LinkedList<>();
+        queue3 = new LinkedList<>();
     }
 
     @Override
     Event produce(double clock) {
         if(queue1.size()>=1 && queue3.size()>=1 && state == states.IDLE){
+            totalIdleTime += clock - idleStart;
             state = states.WORKING;
-            double completeTime = clock + getFinishTime();
+            double duration = getFinishTime();
+            double completeTime = clock + duration;
+            queue1.poll();
+            queue3.poll();
+            System.out.println("Workstation3 Event Added: Duration " + duration + ", CompleteTime " + completeTime);
             return new Event(this, completeTime);
         }
         else{
-            if(queue1.size()<2) state = states.IDLE;
+            if(queue1.size()<1 && queue3.size()<1) {
+                state = states.IDLE;
+                idleStart = clock;
+            }
             return null;
         }
     }

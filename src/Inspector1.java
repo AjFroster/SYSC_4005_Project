@@ -1,7 +1,6 @@
 public class Inspector1 extends Inspector{
 
     private final double lambda = 0.09654;
-    private Component component;
 
     /**
      * creates new component and returns its completion time
@@ -9,7 +8,7 @@ public class Inspector1 extends Inspector{
      */
     @Override
     public double getFinishTime() {
-        component = new Component(Component.componentType.ONE);
+        this.component = new Component(Component.componentType.ONE);
         double r = rng.getRN();
         double x = (-1/lambda)*Math.log(r);
         return x;
@@ -29,14 +28,17 @@ public class Inspector1 extends Inspector{
         if(w1Queue==2 && w2Queue==2 && w3Queue==2) return false;
         else if(w3Queue < w1Queue && w3Queue < w2Queue){
             w3.getQueue1().add(component);
+            System.out.println("Add component 1 to W3");
             return true;
         }
         else if(w2Queue < w1Queue){
             w2.getQueue1().add(component);
+            System.out.println("Add component 1 to W2");
             return true;
         }
         else{
             w1.getQueue1().add(component);
+            System.out.println("Add component 1 to W1");
             return true;
         }
     }
