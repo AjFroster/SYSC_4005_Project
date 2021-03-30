@@ -44,9 +44,4 @@ public class LCM {
         return X;
     }
 
-    public double getRandNumber(){
-
-        return (double) X/m;
-    }
-
 }

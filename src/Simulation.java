@@ -143,12 +143,14 @@ public class Simulation {
     public static void main(String[] args) throws IOException {
         Simulation sim = new Simulation();
         sim.StartSimulation();
+
         /*
         WorkStation ws1 = new WorkStation1();
         Inspector isp1 = new Inspector1();
-        for(int i =0; i<10; i++){
-            System.out.println("WS1: " + ws1.getFinishTime());
-            System.out.println("ISP1: " + isp1.getFinishTime());
+        Inspector isp2 = new Inspector2(new Component(Component.componentType.TWO));
+        for(int i =0; i<300; i++){
+            System.out.println(ws1.getFinishTime());
+            //System.out.println(isp2.getFinishTime());
         }
 
         CLCG test = new CLCG();
