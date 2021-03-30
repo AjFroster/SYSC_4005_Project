@@ -33,8 +33,7 @@ public class Simulation {
         workStation2.produce(currentTime);
         workStation3.produce(currentTime);
 
-        while(currentTime < 10000.0){
-            System.out.println("----------------");
+        while(currentTime < 1000.0){
             Event nextE = getNextEvent();
             if(nextE.getEType() == Event.eventType.InspectDone){
                 inspectionDone((Inspector) nextE.getSource());
@@ -48,10 +47,10 @@ public class Simulation {
         try(FileWriter writer = new FileWriter("resources/output.csv")){
             for(Product p: output){
                 writer.append(""+p.getProductType());
-                writer.append(",");
+                writer.append(" ");
                 writer.append(""+p.getCompletionTime());
                 writer.write(System.getProperty( "line.separator" ));
-                //System.out.println("Product Type " + p.getProductType()+ ", at time " + p.getCompletionTime()+"added to file");
+                System.out.println("Product Type " + p.getProductType()+ ", at time " + p.getCompletionTime()+"added to file");
             }
         }
         catch(FileNotFoundException e){
@@ -65,7 +64,6 @@ public class Simulation {
         System.out.println("Workstation 1 idle time: " + workStation1.getTotalIdleTime());
         System.out.println("Workstation 2 idle time: " + workStation2.getTotalIdleTime());
         System.out.println("Workstation 3 idle time: " + workStation3.getTotalIdleTime());
-        System.out.println("Total Products Made: " + output.size());
     }
 
 
@@ -145,14 +143,12 @@ public class Simulation {
     public static void main(String[] args) throws IOException {
         Simulation sim = new Simulation();
         sim.StartSimulation();
-
         /*
         WorkStation ws1 = new WorkStation1();
         Inspector isp1 = new Inspector1();
-        Inspector isp2 = new Inspector2(new Component(Component.componentType.TWO));
-        for(int i =0; i<300; i++){
-            System.out.println(ws1.getFinishTime());
-            //System.out.println(isp2.getFinishTime());
+        for(int i =0; i<10; i++){
+            System.out.println("WS1: " + ws1.getFinishTime());
+            System.out.println("ISP1: " + isp1.getFinishTime());
         }
 
         CLCG test = new CLCG();
