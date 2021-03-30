@@ -98,7 +98,7 @@ public class Simulation {
             if(e1!=null) FEL.add(e1);
             if(inspector1.getState() == Inspector.states.BLOCKED){
                 workStation1.getQueue1().add(inspector1.getComponent());
-                inspector1.inspect(currentTime);
+                FEL.add(inspector1.inspect(currentTime));
             }
             return true;
         }
@@ -109,12 +109,12 @@ public class Simulation {
             if(e2 != null) FEL.add(e2);
             if(inspector1.getState() == Inspector.states.BLOCKED){
                 workStation2.getQueue1().add(inspector1.getComponent());
-                inspector1.inspect(currentTime);
+                FEL.add(inspector1.inspect(currentTime));
             }
             if(inspector2.getState() == Inspector.states.BLOCKED
                     && inspector2.getComponent().getCType() == Component.componentType.TWO){
                 workStation2.getQueue2().add(inspector2.getComponent());
-                inspector2.inspect(currentTime);
+                FEL.add(inspector2.inspect(currentTime));
             }
             return true;
         }
@@ -125,12 +125,12 @@ public class Simulation {
             if(e3 != null) FEL.add(e3);
             if(inspector1.getState() == Inspector.states.BLOCKED){
                 workStation3.getQueue1().add(inspector1.getComponent());
-                inspector1.inspect(currentTime);
+                FEL.add(inspector1.inspect(currentTime));
             }
             if(inspector2.getState() == Inspector.states.BLOCKED
                     && inspector2.getComponent().getCType() == Component.componentType.THREE){
                 workStation3.getQueue3().add(inspector2.getComponent());
-                inspector2.inspect(currentTime);
+                FEL.add(inspector2.inspect(currentTime));
             }
             return true;
         }
