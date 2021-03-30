@@ -5,15 +5,23 @@ public class Inspector2 extends Inspector{
     private final double lambda2 = 0.06436;
     private final double lambda3 = 0.04846;
     private CLCG componentGenerator;
+    private boolean testing;
 
     public Inspector2(){
         componentGenerator = new CLCG();
     }
 
+    public Inspector2(Component component){
+        this.component = component;
+        testing = true;
+    }
+
 
     @Override
     public double getFinishTime() {
-        nextComponent();
+        if(!testing) {
+            nextComponent();
+        }
         if(component.getCType()== Component.componentType.TWO){
             double r = rng.getRN();
             double x = (-1/lambda2)*Math.log(r);
