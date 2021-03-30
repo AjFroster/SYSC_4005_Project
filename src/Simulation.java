@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.*;
 import RNG.*;
 
@@ -15,7 +16,7 @@ public class Simulation {
         FEL = new PriorityQueue<Event>(new EventComparator());
     }
 
-    public void StartSimulation(){
+    public void StartSimulation() throws IOException {
         System.out.println("-------Simulation Start--------");
         currentTime=0.0;
         output = new ArrayList<Product>();
@@ -42,16 +43,30 @@ public class Simulation {
             }
 
         }
+
+        try(FileWriter writer = new FileWriter("resources/output.csv")){
+            for(Product p: output){
+                writer.append(""+p.getProductType());
+                writer.append(" ");
+                writer.append(""+p.getCompletionTime());
+                writer.write(System.getProperty( "line.separator" ));
+                System.out.println("Product Type " + p.getProductType()+ ", at time " + p.getCompletionTime()+"added to file");
+            }
+        }
+        catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+
+
         System.out.println("--------SIMULATION COMPLETE-------");
         System.out.println("Inspector 1 idle time: " + inspector1.getTotalTimeIdle());
         System.out.println("Inspector 2 idle time: " + inspector2.getTotalTimeIdle());
         System.out.println("Workstation 1 idle time: " + workStation1.getTotalIdleTime());
         System.out.println("Workstation 2 idle time: " + workStation2.getTotalIdleTime());
         System.out.println("Workstation 3 idle time: " + workStation3.getTotalIdleTime());
-        for(Product p: output){
-            System.out.println("Product Type " + p.getProductType()+ ", at time " + p.getCompletionTime());
-        }
     }
+
+
 
     public boolean inspectionDone(Inspector i) {
         System.out.println("Event InspectionComplete! Type " + i.getComponent().getCType() + " at " + currentTime);
@@ -125,7 +140,7 @@ public class Simulation {
         currentTime = next.getCompleteTime();
         return next;
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Simulation sim = new Simulation();
         sim.StartSimulation();
         /*
