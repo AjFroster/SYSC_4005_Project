@@ -1,4 +1,5 @@
 import RNG.CLCG;
+import java.io.*;
 
 public abstract class Inspector extends EventEntity {
 
@@ -8,7 +9,18 @@ public abstract class Inspector extends EventEntity {
     private double totalTimeIdle;
     private double blockStart;
     protected Component component;
+    private FileWriter writer1;
+    private FileWriter writer2;
 
+    public Inspector(){
+        super();
+        try{
+            writer1 = new FileWriter("resources/insp1.csv");
+            writer2 = new FileWriter("resources/insp2.csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Takes sim clock finds next completion time
@@ -18,13 +30,22 @@ public abstract class Inspector extends EventEntity {
      * @return
      */
     public Event inspect(double clock){
-        if(state == states.BLOCKED){
-            totalTimeIdle += clock - blockStart;
-        }
-        state = states.INSPECTING;
         double duration = getFinishTime();
         double completeTime = clock+duration;
         System.out.println("Inspection" + component.getCType() + " Event Added: Duration " + duration + ", CompleteTime " + completeTime);
+        if(state == states.BLOCKED){
+            totalTimeIdle += clock - blockStart;
+            try {
+                if (component.getCType() == Component.componentType.ONE) {
+                    writer1.write(clock + "," + totalTimeIdle + "\n");
+                }
+                else writer2.write(clock + "," + totalTimeIdle + "\n");
+            }
+            catch (IOException e){
+                System.out.println(e);
+            }
+        }
+        state = states.INSPECTING;
         return new Event(this, completeTime);
     }
 

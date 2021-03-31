@@ -33,7 +33,7 @@ public class Simulation {
         workStation2.produce(currentTime);
         workStation3.produce(currentTime);
 
-        while(currentTime < 1000.0){
+        while(currentTime < 100000.0){
             Event nextE = getNextEvent();
             if(nextE.getEType() == Event.eventType.InspectDone){
                 inspectionDone((Inspector) nextE.getSource());
@@ -47,7 +47,7 @@ public class Simulation {
         try(FileWriter writer = new FileWriter("resources/output.csv")){
             for(Product p: output){
                 writer.append(""+p.getProductType());
-                writer.append(" ");
+                writer.append(",");
                 writer.append(""+p.getCompletionTime());
                 writer.write(System.getProperty( "line.separator" ));
                 System.out.println("Product Type " + p.getProductType()+ ", at time " + p.getCompletionTime()+"added to file");
@@ -64,6 +64,7 @@ public class Simulation {
         System.out.println("Workstation 1 idle time: " + workStation1.getTotalIdleTime());
         System.out.println("Workstation 2 idle time: " + workStation2.getTotalIdleTime());
         System.out.println("Workstation 3 idle time: " + workStation3.getTotalIdleTime());
+        System.out.println("Product made:" + output.size());
     }
 
 
