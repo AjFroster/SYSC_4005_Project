@@ -1,5 +1,6 @@
 import RNG.CLCG;
 import java.io.*;
+import java.util.ArrayList;
 
 public abstract class Inspector extends EventEntity {
 
@@ -9,17 +10,13 @@ public abstract class Inspector extends EventEntity {
     private double totalTimeIdle;
     private double blockStart;
     protected Component component;
-    private FileWriter writer1;
-    private FileWriter writer2;
+    public ArrayList<String> idle1Ouput;
+    public ArrayList<String> idle2Ouput;
 
     public Inspector(){
         super();
-        try{
-            writer1 = new FileWriter("resources/insp1.csv");
-            writer2 = new FileWriter("resources/insp2.csv");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        idle1Ouput = new ArrayList<String>();
+        idle2Ouput = new ArrayList<String>();
     }
 
     /**
@@ -35,14 +32,11 @@ public abstract class Inspector extends EventEntity {
         System.out.println("Inspection" + component.getCType() + " Event Added: Duration " + duration + ", CompleteTime " + completeTime);
         if(state == states.BLOCKED){
             totalTimeIdle += clock - blockStart;
-            try {
-                if (component.getCType() == Component.componentType.ONE) {
-                    writer1.write(clock + "," + totalTimeIdle + "\n");
-                }
-                else writer2.write(clock + "," + totalTimeIdle + "\n");
+            if (component.getCType() == Component.componentType.ONE) {
+                idle1Ouput.add(clock+","+totalTimeIdle);
             }
-            catch (IOException e){
-                System.out.println(e);
+            else{
+                idle2Ouput.add(clock+","+totalTimeIdle);
             }
         }
         state = states.INSPECTING;

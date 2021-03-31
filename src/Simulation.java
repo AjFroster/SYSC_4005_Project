@@ -56,6 +56,16 @@ public class Simulation {
         catch(FileNotFoundException e){
             System.out.println(e.getMessage());
         }
+        try(FileWriter writer2 = new FileWriter("resources/insp1.csv")){
+            for(String s: inspector1.idle1Ouput){
+                writer2.append(s + "\n");
+            }
+        }
+        try(FileWriter writer3 = new FileWriter("resources/insp2.csv")){
+            for(String s: inspector2.idle2Ouput){
+                writer3.append(s + "\n");
+            }
+        }
 
 
         System.out.println("--------SIMULATION COMPLETE-------");
