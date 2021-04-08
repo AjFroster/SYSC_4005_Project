@@ -22,24 +22,27 @@ public class Inspector1 extends Inspector{
      * @return
      */
     public boolean selectWorkStation(WorkStation1 w1, WorkStation2 w2, WorkStation3 w3){
-        int w1Queue = w1.getQueue1().size();
-        int w2Queue = w2.getQueue1().size();
-        int w3Queue = w3.getQueue1().size();
-        if(w1Queue==2 && w2Queue==2 && w3Queue==2) return false;
-        else if(w3Queue < w1Queue && w3Queue < w2Queue){
-            w3.getQueue1().add(component);
-            System.out.println("Add component 1 to W3");
-            return true;
-        }
-        else if(w2Queue < w1Queue){
+        int w1Queue1 = w1.getQueue1().size();
+        int w2Queue1 = w2.getQueue1().size();
+        int w3Queue1 = w3.getQueue1().size();
+        int w2Queue2 = w2.getQueue2().size();
+        int w3Queue3 = w3.getQueue3().size();
+        if(w1Queue1==2 && w2Queue1==2 && w3Queue1==2) return false;
+        else if(w2Queue2 !=0 && w2Queue1 !=2){
             w2.getQueue1().add(component);
             System.out.println("Add component 1 to W2");
             return true;
         }
-        else{
+        else if(w3Queue3 !=0 && w3Queue1 !=2){
+            w3.getQueue1().add(component);
+            System.out.println("Add component 1 to W3");
+            return true;
+        }
+        else if(w1Queue1 != 2){
             w1.getQueue1().add(component);
             System.out.println("Add component 1 to W1");
             return true;
         }
+        else return false;
     }
 }
