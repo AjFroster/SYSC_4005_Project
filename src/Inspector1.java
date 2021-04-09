@@ -1,6 +1,7 @@
 public class Inspector1 extends Inspector{
 
     private final double lambda = 0.09654;
+    private int priority = 1;
 
     /**
      * creates new component and returns its completion time
@@ -27,22 +28,26 @@ public class Inspector1 extends Inspector{
         int w3Queue1 = w3.getQueue1().size();
         int w2Queue2 = w2.getQueue2().size();
         int w3Queue3 = w3.getQueue3().size();
-        if(w1Queue1==2 && w2Queue1==2 && w3Queue1==2) return false;
-        else if(w2Queue2 !=0 && w2Queue1 !=2){
-            w2.getQueue1().add(component);
-            System.out.println("Add component 1 to W2");
-            return true;
+        switch (priority){
+            case 1:
+                if(w1Queue1==2 && w2Queue1==2 && w3Queue1==2) return false;
+                else if(w2Queue2 !=0 && w2Queue1 !=2){
+                    w2.getQueue1().add(component);
+                    System.out.println("Add component 1 to W2");
+                    return true;
+                }
+                else if(w3Queue3 !=0 && w3Queue1 !=2){
+                    w3.getQueue1().add(component);
+                    System.out.println("Add component 1 to W3");
+                    return true;
+                }
+                else if(w1Queue1 != 2){
+                    w1.getQueue1().add(component);
+                    System.out.println("Add component 1 to W1");
+                    return true;
+                }
+                else return false;
         }
-        else if(w3Queue3 !=0 && w3Queue1 !=2){
-            w3.getQueue1().add(component);
-            System.out.println("Add component 1 to W3");
-            return true;
-        }
-        else if(w1Queue1 != 2){
-            w1.getQueue1().add(component);
-            System.out.println("Add component 1 to W1");
-            return true;
-        }
-        else return false;
+
     }
 }
