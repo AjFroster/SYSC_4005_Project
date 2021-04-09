@@ -26,28 +26,61 @@ public class Inspector1 extends Inspector{
         int w1Queue1 = w1.getQueue1().size();
         int w2Queue1 = w2.getQueue1().size();
         int w3Queue1 = w3.getQueue1().size();
-        int w2Queue2 = w2.getQueue2().size();
-        int w3Queue3 = w3.getQueue3().size();
+        if(w1Queue1==2 && w2Queue1==2 && w3Queue1==2) return false;
         switch (priority){
             case 1:
-                if(w1Queue1==2 && w2Queue1==2 && w3Queue1==2) return false;
-                else if(w2Queue2 !=0 && w2Queue1 !=2){
-                    w2.getQueue1().add(component);
-                    System.out.println("Add component 1 to W2");
-                    return true;
-                }
-                else if(w3Queue3 !=0 && w3Queue1 !=2){
+                priority = 2;
+                if(w3Queue1 < w1Queue1 && w3Queue1 < w2Queue1){
                     w3.getQueue1().add(component);
                     System.out.println("Add component 1 to W3");
                     return true;
                 }
-                else if(w1Queue1 != 2){
+                else if(w2Queue1 < w1Queue1){
+                    w2.getQueue1().add(component);
+                    System.out.println("Add component 1 to W2");
+                    return true;
+                }
+                else{
                     w1.getQueue1().add(component);
                     System.out.println("Add component 1 to W1");
                     return true;
                 }
-                else return false;
+            case 2:
+                priority = 3;
+                if(w3Queue1 < w1Queue1 && w3Queue1 < w2Queue1){
+                    w3.getQueue1().add(component);
+                    System.out.println("Add component 1 to W3");
+                    return true;
+                }
+                else if(w1Queue1 < w2Queue1){
+                    w1.getQueue1().add(component);
+                    System.out.println("Add component 1 to W1");
+                    return true;
+                }
+                else{
+                    w2.getQueue1().add(component);
+                    System.out.println("Add component 1 to W2");
+                    return true;
+                }
+            case 3:
+                priority = 3;
+                if(w2Queue1 < w1Queue1 && w2Queue1 < w3Queue1){
+                    w2.getQueue1().add(component);
+                    System.out.println("Add component 1 to W2");
+                    return true;
+                }
+                else if(w1Queue1 < w3Queue1){
+                    w1.getQueue1().add(component);
+                    System.out.println("Add component 1 to W1");
+                    return true;
+                }
+                else{
+                    w3.getQueue1().add(component);
+                    System.out.println("Add component 1 to W3");
+                    return true;
+                }
         }
+        return false;
 
     }
 }
