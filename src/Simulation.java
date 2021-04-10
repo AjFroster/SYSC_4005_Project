@@ -1,4 +1,5 @@
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
 import RNG.*;
 
@@ -17,7 +18,7 @@ public class Simulation {
     }
 
     public void StartSimulation() throws IOException {
-        System.out.println("-------Simulation Start--------");
+        //System.out.println("-------Simulation Start--------");
         currentTime=0.0;
         output = new ArrayList<Product>();
         inspector1 = new Inspector1();
@@ -44,30 +45,29 @@ public class Simulation {
 
         }
 
-        try(FileWriter writer = new FileWriter("resources/output.csv")){
+        try(FileWriter avgWriter = new FileWriter("resources/avgOutput.csv", true)){
+            double productCount=0.0;
             for(Product p: output){
-                writer.append(""+p.getProductType());
-                writer.append(",");
-                writer.append(""+p.getCompletionTime());
-                writer.write(System.getProperty( "line.separator" ));
-                System.out.println("Product Type " + p.getProductType()+ ", at time " + p.getCompletionTime()+"added to file");
+                //GetTotal
+                if(p.getCompletionTime() > 25000){
+                    productCount++;
+                }
             }
+            avgWriter.append(productCount/75000.0+"\n");
         }
         catch(FileNotFoundException e){
             System.out.println(e.getMessage());
         }
-        try(FileWriter writer2 = new FileWriter("resources/insp1.csv")){
-            for(String s: inspector1.idle1Ouput){
-                writer2.append(s + "\n");
+
+        try(FileWriter avgIdle2 = new FileWriter("resources/avgInsp2.csv", true)){
+            double sum=0.0;
+            for(double d: inspector2.idle2Average){
+                sum+=d;
             }
-        }
-        try(FileWriter writer3 = new FileWriter("resources/insp2.csv")){
-            for(String s: inspector2.idle2Ouput){
-                writer3.append(s + "\n");
-            }
+            avgIdle2.append(sum/inspector2.idle2Average.size()+"\n");
         }
 
-
+        /*
         System.out.println("--------SIMULATION COMPLETE-------");
         System.out.println("Inspector 1 idle time: " + inspector1.getTotalTimeIdle());
         System.out.println("Inspector 2 idle time: " + inspector2.getTotalTimeIdle());
@@ -75,12 +75,13 @@ public class Simulation {
         System.out.println("Workstation 2 idle time: " + workStation2.getTotalIdleTime());
         System.out.println("Workstation 3 idle time: " + workStation3.getTotalIdleTime());
         System.out.println("Product made:" + output.size());
+        */
     }
 
 
 
     public boolean inspectionDone(Inspector i) {
-        System.out.println("Event InspectionComplete! Type " + i.getComponent().getCType() + " at " + currentTime);
+        //System.out.println("Event InspectionComplete! Type " + i.getComponent().getCType() + " at " + currentTime);
         if(i.selectWorkStation(workStation1, workStation2, workStation3)){
             //Run produce, if it can start produce will return a new event Otherwise return null
             Event e1 = workStation1.produce(currentTime);
@@ -101,7 +102,7 @@ public class Simulation {
     public boolean productComplete(WorkStation ws) {
         ws.state = WorkStation.states.IDLE;
         if(ws.equals(workStation1)){
-            System.out.println("Event Product! Type 1 at " + currentTime);
+            //System.out.println("Event Product! Type 1 at " + currentTime);
             output.add(new Product(Product.productType.ONE, currentTime));
             Event e1 = workStation1.produce(currentTime);
             if(e1!=null) FEL.add(e1);
@@ -112,7 +113,7 @@ public class Simulation {
             return true;
         }
         else if(ws.equals(workStation2)){
-            System.out.println("Event Product! Type 2 at " + currentTime);
+            //System.out.println("Event Product! Type 2 at " + currentTime);
             output.add(new Product(Product.productType.TWO, currentTime));
             Event e2 = workStation2.produce(currentTime);
             if(e2 != null) FEL.add(e2);
@@ -128,7 +129,7 @@ public class Simulation {
             return true;
         }
         else if(ws.equals(workStation3)){
-            System.out.println("Event Product! Type 3 at " + currentTime);
+            //System.out.println("Event Product! Type 3 at " + currentTime);
             output.add(new Product(Product.productType.THREE, currentTime));
             Event e3 = workStation3.produce(currentTime);
             if(e3 != null) FEL.add(e3);
@@ -152,8 +153,10 @@ public class Simulation {
         return next;
     }
     public static void main(String[] args) throws IOException {
-        Simulation sim = new Simulation();
-        sim.StartSimulation();
+        for(int i=0; i<1000; i++) {
+            Simulation sim = new Simulation();
+            sim.StartSimulation();
+        }
         /*
         WorkStation ws1 = new WorkStation1();
         Inspector isp1 = new Inspector1();
