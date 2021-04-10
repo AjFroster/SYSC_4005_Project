@@ -12,11 +12,13 @@ public abstract class Inspector extends EventEntity {
     protected Component component;
     public ArrayList<String> idle1Ouput;
     public ArrayList<String> idle2Ouput;
+    public ArrayList<Double> idle2Average; //after 25000 minutes
 
     public Inspector(){
         super();
         idle1Ouput = new ArrayList<String>();
         idle2Ouput = new ArrayList<String>();
+        idle2Average = new ArrayList<Double>();
     }
 
     /**
@@ -37,6 +39,9 @@ public abstract class Inspector extends EventEntity {
             }
             else{
                 idle2Ouput.add(clock+","+totalTimeIdle);
+                if(clock > 25000){
+                    idle2Average.add(totalTimeIdle/clock);
+                }
             }
         }
         state = states.INSPECTING;
