@@ -9,13 +9,13 @@ This Branch has the original inspector 1 policy and runs 1 replication at a time
 <h3>OriginalPolicyWithMassReplication Branch</h3>
 This branch has the original inspector 1 policy but runs 1000 replications will less step by step output but the average of each point estimator after initialization phase.
 
-<h3>InspectorsPolicyChange Branch<h3> 
+<h3>InspectorsPolicyChange Branch</h3> 
 This branch is the same as the master branch but with the new inspector policy implemented
 
-<h3>PolicyChangeWithMassReplication Branch<h3>
+<h3>PolicyChangeWithMassReplication Branch</h3>
 This branch has the 1000 replications with the new policy with less set by step outpt but the average of each point estimator after initialization phase.
 
-<h3>Output<h3>
+<h3>Output</h3>
 All output will be in the 'resources' folder
 output.csv: The running products per minute value. (In Master and InspectorPolicyChange branches)
 insp2.csv&insp1.csv: The running percent idle time for each inspector respectively (In Master and InspectorPolicyChange branches)
